@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
         if (timeManager != null)
             timeManager.StartMovement();
 
-        reservation.DebugPrintReservations();
+        //reservation.DebugPrintReservations();
     }
 
     public bool IsPlayerTurn => isPlayerTurn;

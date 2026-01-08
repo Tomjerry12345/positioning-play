@@ -159,7 +159,7 @@ public class CellReservationManager : MonoBehaviour
     /// <summary>
     /// Debug visualization
     /// </summary>
-    public void DebugPrintReservations()
+    private void DebugPrintReservations()
     {
         Debug.Log($"🔒 Reserved Cells ({reservedCells.Count}): {string.Join(", ", reservedCells)}");
         Debug.Log($"📍 Occupied Cells ({occupiedCells.Count}): {string.Join(", ", occupiedCells.Keys)}");

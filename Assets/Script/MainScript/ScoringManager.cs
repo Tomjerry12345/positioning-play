@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,14 +11,18 @@ public class ScoreData
 }
 public class ScoringManager : MonoBehaviour
 {
+    [Header("Feedback")]
+    public List<string> feedback;
+
     [Header("Profile")]
     public TMP_Text nameText;
     public TMP_Text roleText;
     public TMP_Text poinText;
+    public TMP_Text feedbacktext;
 
     [Header("Positioning")]
-    public TMP_Text timeInRoleArea;
-    public TMP_Text timeOutsideRoleArea;
+    public TMP_Text timeInAreaIdeal;
+    public TMP_Text timeInAreaNetral;
     public TMP_Text scorePositioning;
 
     [Header("Passing")]
@@ -45,31 +49,34 @@ public class ScoringManager : MonoBehaviour
         string playerName = PlayerPrefs.GetString("PlayerName", "Guest");
         role = PlayerPrefs.GetString("Role");
 
-        float inTime = PlayerPrefs.GetFloat("TimeInRoleArea");
-        float outTime = PlayerPrefs.GetFloat("TimeOutsideRoleArea");
+        float idealTime = PlayerPrefs.GetFloat("IdealTime");
+        float netralTime = PlayerPrefs.GetFloat("NetralTime");
+        float scorePositioningTotal = PlayerPrefs.GetFloat("ScorePositioning");
+
+        int passingIdeal = PlayerPrefs.GetInt("PassingIdeal");
+        int scorePassingTotal = PlayerPrefs.GetInt("ScorePassing"); // misal setiap passing sukses dapat 2 poin
+
+        int totalScore = (int)scorePositioningTotal + scorePassingTotal;
+
+        Debug.Log($"idealTime : {idealTime} | netralTime : {netralTime} | scorePositioning : {scorePositioningTotal}");
+        Debug.Log($"passingIdeal : {passingIdeal} | scorePassing : {scorePassingTotal}");
+
+        int indexFeedback = PlayerPrefs.GetInt("IndexFeedback");
+        Debug.Log($"Index Feedback : {indexFeedback}");
 
 
-        double totalScorePositioning = (((inTime * 1) / durasiGame) + ((outTime * 0.2) / durasiGame)) * 100;
+        timeInAreaIdeal.text = $"{idealTime:F1} Detik";
+        timeInAreaNetral.text = $"{netralTime:F1} Detik";
+        scorePositioning.text = $"{scorePositioningTotal:F1}";
 
-        int totalPasses = PlayerPrefs.GetInt("TotalPasses");
-        int totalSuccessfulPasses = totalPasses * 2; // misal setiap passing sukses dapat 2 poin
-
-        Debug.Log($"inTime : {inTime}");
-        Debug.Log($"outTime : {outTime}");
-        Debug.Log($"totalPasses : {totalPasses}");
-
-        totalScore = Mathf.RoundToInt((float)totalScorePositioning) + totalSuccessfulPasses;
-
-        timeInRoleArea.text = $"{inTime:F1} Detik";
-        timeOutsideRoleArea.text = $"{outTime:F1} Detik";
-        scorePositioning.text = $"{totalScorePositioning:F1}";
-
-        passingSuccess.text = $"{totalPasses}x";
-        scorePassing.text = $"{totalSuccessfulPasses}";
+        passingSuccess.text = $"{passingIdeal}x";
+        scorePassing.text = $"{scorePassingTotal}";
 
         nameText.text = playerName;
         roleText.text = role;
         poinText.text = totalScore.ToString();
+
+        feedbacktext.text = feedback[indexFeedback];
 
     }
 
@@ -81,8 +88,8 @@ public class ScoringManager : MonoBehaviour
 
     void Clear()
     {
-        PlayerPrefs.DeleteKey("TimeInRoleArea");
-        PlayerPrefs.DeleteKey("TimeOutsideRoleArea");
+        PlayerPrefs.DeleteKey("IdealTime");
+        PlayerPrefs.DeleteKey("NetralTime");
         PlayerPrefs.DeleteKey("TotalPasses");
 
         Time.timeScale = 1f; // pastikan waktu game normal lagi

@@ -194,13 +194,12 @@ public class TeamAIManager : MonoBehaviour
             formationManager = FindObjectOfType<FormationManager>();
 
         currentHolder = teammates.FirstOrDefault(t => t.assignedRole == "GK");
-        player.roleAllowedAreas = roleAllowedAreas;
         reservation = CellReservationManager.Instance;
     }
 
     private void Update()
     {
-        DrawRoleAreas();
+        //DrawRoleAreas();
 
         // Mode testing manual (pakai F)
         if (Keyboard.current.fKey.wasPressedThisFrame)
