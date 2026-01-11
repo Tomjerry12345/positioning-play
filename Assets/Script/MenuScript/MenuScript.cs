@@ -11,6 +11,7 @@ public class MenuScript : MonoBehaviour
     public Animator popupAnimator;
     public Animator popupTutorial;
     public Animator popupLog;
+    public Animator popupAudio;
 
     void Start()
     {
@@ -30,46 +31,50 @@ public class MenuScript : MonoBehaviour
         getAllHistory();
     }
 
-    public void ShowTutorial()
+    void Clicked(Animator anim, string triggerName)
     {
         AudioManager.instance.PlaySFX(AudioManager.instance.sfxButton);
-        Debug.Log("Tutorial button clicked");
-        popupTutorial.SetTrigger("ShowTutorial");
+        anim.SetTrigger(triggerName);
+    }
+
+    public void ShowAudio()
+    {
+        Clicked(popupAudio, "ShowAudio");
+    }
+
+    public void HideAudio()
+    {
+        Clicked(popupAudio, "HideAudio");
+    }
+
+    public void ShowTutorial()
+    {
+        Clicked(popupTutorial, "ShowTutorial");
     }
 
     public void HideTutorial()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.sfxButton);
-        Debug.Log("HideTutorial button clicked");
-        popupTutorial.SetTrigger("HideTutorial");
+        Clicked(popupTutorial, "HideTutorial");
     }
 
     public void ShowMulai()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.sfxButton);
-        Debug.Log("Mulai button clicked");
-        popupAnimator.SetTrigger("ShowPopup");
+        Clicked(popupAnimator, "ShowPopup");
     }
 
     public void HideMulai()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.sfxButton);
-        Debug.Log("HideMulai button clicked");
-        popupAnimator.SetTrigger("HidePopup");
+        Clicked(popupAnimator, "HidePopup");
     }
 
     public void ShowLog()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.sfxButton);
-        Debug.Log("ShowLog button clicked");
-        popupLog.SetTrigger("ShowLog");
+        Clicked(popupLog, "ShowLog");
     }
 
     public void HideLog()
     {
-        AudioManager.instance.PlaySFX(AudioManager.instance.sfxButton);
-        Debug.Log("HideLog button clicked");
-        popupLog.SetTrigger("HideLog");
+        Clicked(popupLog, "HideLog");
     }
 
     void getAllHistory()
@@ -92,7 +97,7 @@ public class MenuScript : MonoBehaviour
          
             totalPoints += log.points;
 
-            Debug.Log($"Role: {log.positionName} — Poin: {log.points}");
+            //Debug.Log($"Role: {log.positionName} — Poin: {log.points}");
         }
 
 

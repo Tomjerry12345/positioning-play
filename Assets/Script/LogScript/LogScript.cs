@@ -75,7 +75,7 @@ public class LogScript : MonoBehaviour
             pos.text = log.positionName;
             poin.text = log.points + " POIN";
 
-            Debug.Log($"Role: {log.positionName} — Poin: {log.points}");
+            //Debug.Log($"Role: {log.positionName} — Poin: {log.points}");
         }
         
     }

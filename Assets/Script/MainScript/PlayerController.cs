@@ -868,7 +868,7 @@ public class PlayerController : MonoBehaviour
     private void UpdateTotalScore()
     {
         // ✅ JANGAN UPDATE JIKA SUDAH GAME OVER (index 3 atau 4)
-        if (indexFeedback == 3 || indexFeedback == 4)
+        if (indexFeedback == 2 || indexFeedback == 3)
         {
             Debug.Log($"⚠️ Game Over state detected, keeping indexFeedback = {indexFeedback}");
             return;
@@ -892,11 +892,6 @@ public class PlayerController : MonoBehaviour
         {
             indexFeedback = 1;
         }
-        //else if ((timeInAreaIdeal > timeInAreaNetral && passingIdeal <= passingNetral) ||
-        //         (timeInAreaIdeal <= timeInAreaNetral && passingIdeal > passingNetral))
-        //{
-        //    indexFeedback = 2;
-        //}
         else
         {
             indexFeedback = 4;
@@ -922,7 +917,7 @@ public class PlayerController : MonoBehaviour
     // ✅ METHOD BARU - Get current area info (untuk UI/debug)
     public string GetCurrentAreaInfo()
     {
-        return $"Area: {currentAreaType} | Positioning: {scorePositioning:F1} | passingIdeal: {passingIdeal} | Total: {scorePassing}";
+        return $"Area: {currentAreaType} | Positioning: {scorePositioning} | passingIdeal: {passingIdeal} | Total: {scorePassing}";
     }
 
     private Vector2Int GetSafeAttachDirection()
